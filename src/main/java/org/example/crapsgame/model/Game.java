@@ -25,9 +25,7 @@ public class Game {
     }
 
     public int getPoint() {
-        if ((shoot==5 || shoot==6 || shoot==8 || shoot==9) && point == 0){
-            point=shoot;
-        }
+
 
         return this.point;
     }
@@ -64,7 +62,9 @@ public class Game {
     public int rollDices(int dado1, int dado2) {
         shoot=dado1+dado2;
 
-        if (point != 0) {
+        if (point == 0 && (shoot==5 || shoot==6 || shoot==8 || shoot==9)) {
+
+            point=shoot;
 
         }
 
