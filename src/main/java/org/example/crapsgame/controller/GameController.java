@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import org.example.crapsgame.model.Dice;
+import org.example.crapsgame.model.Excepcion;
 import org.example.crapsgame.model.Game;
 import org.example.crapsgame.view.alert.AlertBox;
 
@@ -47,15 +48,33 @@ public class GameController {
         pointLabel.setText(String.valueOf(games.get(games.size() - 1).getPoint()));
 
 
-        if (games.get(games.size() - 1).isLose()) {
+        try {
+
+            Exception e= new Exception("causa de la excepción");
+            if (games.get(games.size() - 1).isLose()) {
+                if (games.get(games.size() - 1).getShootCount() ==1)
+                {
+                    throw new Excepcion("perdiste en el primer intento", e);
+
+                }
+                else{
+                    throw new Excepcion("perdiste despues del primer intento", e);
+                }
+            }
+
+        }
+        catch(Excepcion e){
             new AlertBox().showMessage(
                     "Perdiste",
                     "¡Ops! Perdiste",
-                    "Sacaste el número " + String.valueOf(games.get(games.size() - 1).getShoot()) + ", por lo tanto perdiste."
+                    e.getMessage()
             );
             games.add(new Game());
             losses++;
         }
+
+
+
 
         if (games.get(games.size() -1).isWin()) {
             games.add(new Game());
