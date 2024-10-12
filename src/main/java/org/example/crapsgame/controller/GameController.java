@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class GameController {
 
     @FXML
-    private Label pointLabel, shootLabel;
+    private Label pointLabel, shootLabel, shotLabel1, pointLabel1;
 
     @FXML
     private ImageView dice1ImageView, dice2ImageView;
@@ -25,10 +25,14 @@ public class GameController {
 
     Dice dice1, dice2;
     ArrayList<Game> games = new ArrayList<Game>();
+    int wins, losses;
 
     public GameController() {
         this.dice1 = new Dice();
         this.dice2 = new Dice();
+        this.wins = 0;
+        this.losses = 0;
+        games.add(new Game());
     }
 
     @FXML
@@ -37,6 +41,36 @@ public class GameController {
         this.dice2.rollDice();
         this.dice1ImageView.setImage(this.dice1.getDiceImage());
         this.dice2ImageView.setImage(this.dice2.getDiceImage());
+
+        games.get(games.size() - 1).rollDices(dice1.getValue(), dice2.getValue());
+        shootLabel.setText(String.valueOf(games.get(games.size() - 1).getShoot()));
+        pointLabel.setText(String.valueOf(games.get(games.size() - 1).getPoint()));
+
+
+        if (games.get(games.size() - 1).isLose()) {
+            new AlertBox().showMessage(
+                    "Perdiste",
+                    "¡Ops! Perdiste",
+                    "Sacaste el número " + String.valueOf(games.get(games.size() - 1).getShoot()) + ", por lo tanto perdiste."
+            );
+            games.add(new Game());
+            losses++;
+        }
+
+        if (games.get(games.size() -1).isWin()) {
+            games.add(new Game());
+            wins++;
+        }
+
+        shootLabel.setText(String.valueOf(games.get(games.size() - 1).getShoot()));
+        pointLabel.setText(String.valueOf(games.get(games.size() - 1).getPoint()));
+
+        System.out.println("tamaño" + String.valueOf(games.size()));
+        System.out.println("contador" + String.valueOf(games.get(games.size() - 1).getShootCount()));
+
+        shotLabel1.setText(String.valueOf(wins));
+        pointLabel1.setText(String.valueOf(losses));
+
     }
     @FXML
     void onActionHelpButton(ActionEvent event) {
