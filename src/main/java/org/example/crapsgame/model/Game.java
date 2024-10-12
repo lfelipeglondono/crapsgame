@@ -12,22 +12,20 @@ public class Game {
         this.shootCount = 0;
         this.shoot = 0;
         this.point = 0;
+        this.win = false;
+        this.lose = false;
     }
 
     public int getShoot() {
-
         return this.shoot;
     }
 
     public int getShootCount() {
-        if (shoot!=2 && shoot!=3 && shoot!=12){
-            shootCount++;
-        }
         return this.shootCount;
     }
 
     public int getPoint() {
-        if (shoot==5||shoot==6||shoot==8||shoot==9||shoot==5){
+        if ((shoot==5 || shoot==6 || shoot==8 || shoot==9) && point == 0){
             point=shoot;
         }
 
@@ -35,26 +33,40 @@ public class Game {
     }
 
     public boolean isWin() {
-        win=false;
-        if (shoot==7|| shoot==11){
-            lose=true;
+        if (shootCount == 0) {
+            if (shoot == 7 || shoot == 11){
+                win = true;
+            }
         }
-        //si captura el punto antes de sacar 7
-        if(shoot==point)
-            win =true;
-        return this.win;
+
+        else {
+            if(shoot == point) {
+                win = true;
+            }
+        }
+
+        shootCount++;
+
+        return win;
     }
 
     public boolean isLose() {
-        lose=false;
-        if (shoot==2|| shoot==3||shoot==12){
-            lose=true;
+        if (shootCount == 0 && (shoot == 2 || shoot == 3 || shoot == 12)) {
+            lose = true;
         }
-        return this.lose;
+        else if (shootCount != 0 && shoot == 7) {
+            lose = true;
+        }
+
+        return lose;
     }
 
     public int rollDices(int dado1, int dado2) {
         shoot=dado1+dado2;
+
+        if (point != 0) {
+
+        }
 
         return this.shoot;
     }
