@@ -43,7 +43,7 @@ public class Game {
             }
         }
 
-        shootCount++;
+
 
         return win;
     }
@@ -67,6 +67,8 @@ public class Game {
             point=shoot;
 
         }
+
+        shootCount++;
 
         return this.shoot;
     }
