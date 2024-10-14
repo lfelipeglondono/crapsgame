@@ -22,8 +22,7 @@ public class GameController {
 
     @FXML
     private Button helpButton;
-
-
+    
     Dice dice1, dice2;
     ArrayList<Game> games = new ArrayList<Game>();
     int wins, losses;
@@ -49,7 +48,6 @@ public class GameController {
 
 
         try {
-
             Exception e= new Exception("causa de la excepción");
             if (games.get(games.size() - 1).isLose()) {
                 if (games.get(games.size() - 1).getShootCount() ==1)
@@ -73,19 +71,22 @@ public class GameController {
             losses++;
         }
 
-
-
-
         if (games.get(games.size() -1).isWin()) {
+
+
+            new AlertBox().showMessage(
+                    "Ganaste",
+                    "¡Felicidades! Ganaste",
+                    (games.get(games.size() -1).getShootCount() == 1) ? "Ganaste por sacar " + String.valueOf(games.get(games.size() -1).getShoot()) :
+                            "Ganaste por sacar de nuevo el punto: " + String.valueOf(games.get(games.size() -1).getPoint())
+            );
+
             games.add(new Game());
             wins++;
         }
 
         shootLabel.setText(String.valueOf(games.get(games.size() - 1).getShoot()));
         pointLabel.setText(String.valueOf(games.get(games.size() - 1).getPoint()));
-
-        System.out.println("tamaño" + String.valueOf(games.size()));
-        System.out.println("contador" + String.valueOf(games.get(games.size() - 1).getShootCount()));
 
         shotLabel1.setText(String.valueOf(wins));
         pointLabel1.setText(String.valueOf(losses));
